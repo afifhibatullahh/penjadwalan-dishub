@@ -60,7 +60,9 @@ const timeToString = (time) => {
 };
 
 const Menu = ({ navigation }) => {
+  const [selected, setSelected] = useState(new Date().getDate());
   const [items, setItems] = useState({});
+  const [hari, setHari] = useState();
 
   const loadItems = (day) => {
     setTimeout(() => {
@@ -90,23 +92,30 @@ const Menu = ({ navigation }) => {
   const Separator = () => {
     return <View style={styles.seperator} />;
   };
+
+  // const onDayPress = (day) => {
+  //   setSelected(day.dateString);
+  // };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar />
 
       <Calendar
-        current={"2021-06-21"}
+        // current={"2021-06-21"}
         monthFormat={"yyyy MMMM"}
         onDayPress={(day) => {
+          setSelected(day.dateString);
           console.log("selected day", day);
+          setHari(day);
         }}
         onMonthChange={(month) => {
           console.log("month changed", month);
         }}
         markedDates={{
-          "2021-06-21": {
+          [selected]: {
             selected: true,
-            marked: true,
+            // disableTouchEvent: true,
             selectedColor: "#678DCF",
           },
         }}

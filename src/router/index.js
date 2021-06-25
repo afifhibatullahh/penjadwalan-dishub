@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Login, Menu, AddEvents } from "../pages";
+import { Login, Menu, AddEvents, CalendarsScreen } from "../pages";
 
 const Stack = createStackNavigator();
 
@@ -23,6 +23,11 @@ const Router = () => {
         component={AddEvents}
         options={{ headerShown: false }}
       />
+      {/* <Stack.Screen
+        name="CalendarScreen"
+        component={CalendarsScreen}
+        options={{ headerShown: false }}
+      /> */}
     </Stack.Navigator>
   );
 };
