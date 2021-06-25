@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { Icon } from "react-native-elements";
+import { Entypo } from "@expo/vector-icons";
 import moment from "moment";
 import {
   StatusBar,
@@ -12,18 +12,17 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
-import { Value } from "react-native-reanimated";
-import { TEAMCITY } from "ci-info";
 
 const AddEvents = ({ navigation }) => {
-  const [date, setDate] = useState(new Date());
+  const [dateFrom, setDateFrom] = useState(new Date());
+  const [dateTo, setDateTo] = useState(new Date());
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
 
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
+    const currentDate = selectedDate || dateFrom;
     setShow(Platform.OS === "ios");
-    setDate(currentDate);
+    setDateFrom(currentDate);
   };
 
   const showMode = (currentMode) => {
@@ -33,7 +32,7 @@ const AddEvents = ({ navigation }) => {
 
   const showDatepicker = () => {
     showMode("datetime");
-    console.log(date);
+    console.log(dateFrom);
   };
 
   const showTimepicker = () => {
@@ -57,12 +56,18 @@ const AddEvents = ({ navigation }) => {
             navigation.pop();
           }}
         >
-          <Text style={{ fontSize: 25, fontWeight: "bold", color: "white" }}>
+          <Entypo name="chevron-left" size={25} color={"white"} />
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+              color: "white",
+            }}
+          >
             Kembali
           </Text>
         </TouchableOpacity>
 
-        <Icon name="rowing" />
         <Text style={styles.text}>Tambah Jadwal</Text>
       </View>
 
@@ -74,23 +79,25 @@ const AddEvents = ({ navigation }) => {
           <View>
             <Text style={styles.pickText}>Dari</Text>
             <View style={styles.pickDateTime}>
-              <View style={styles.pickDate}>
-                <TouchableOpacity onPress={showDatepicker}>
-                  <Text>{moment(date).format("DD MMMM YYYY")}</Text>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity
+                onPress={showDatepicker}
+                style={styles.pickDate}
+              >
+                <Text>{moment(dateFrom).format("DD MMMM YYYY")}</Text>
+                <Entypo name="calendar" size={20} />
+              </TouchableOpacity>
               <View style={styles.pickTime}>
                 <TouchableOpacity onPress={showTimepicker}>
-                  <Text>{moment(date).format("h:mm:ss")}</Text>
+                  <Text>{moment(dateFrom).format("HH:mm")}</Text>
                 </TouchableOpacity>
               </View>
               {show && (
                 <DateTimePicker
-                  value={date}
+                  value={dateFrom}
                   mode={mode}
                   is24Hour={true}
-                  display="default"
                   onChange={onChange}
+                  display="spinner"
                 />
               )}
             </View>
@@ -104,20 +111,20 @@ const AddEvents = ({ navigation }) => {
                 onPress={showDatepicker}
                 style={styles.pickDate}
               >
-                <Text>{moment(date).format("DD MMMM YYYY")}</Text>
+                <Text>{moment(dateTo).format("DD MMMM YYYY")}</Text>
+                <Entypo name="calendar" size={20} />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={showTimepicker}
                 style={styles.pickTime}
               >
-                <Text>{moment(date).format("h:mm:ss")}</Text>
+                <Text>{moment(dateTo).format("HH:mm")}</Text>
               </TouchableOpacity>
               {show && (
                 <DateTimePicker
-                  value={date}
+                  value={dateTo}
                   mode={mode}
                   is24Hour={true}
-                  display="default"
                   onChange={onChange}
                 />
               )}
@@ -160,7 +167,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  buttonClose: {},
+  buttonClose: {
+    flexDirection: "row",
+    marginTop: 10,
+    alignItems: "center",
+  },
   text: {
     fontSize: 28,
     fontWeight: "700",
@@ -178,6 +189,8 @@ const styles = StyleSheet.create({
     width: "70%",
     borderRadius: 10,
     backgroundColor: "#E1E1E1",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   pickTime: {
     padding: 10,

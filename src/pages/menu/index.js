@@ -6,7 +6,9 @@ import {
   Text,
   View,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
+import { Entypo } from "@expo/vector-icons";
 import { Agenda, Calendar, LocaleConfig } from "react-native-calendars";
 import ActionButton from "react-native-action-button";
 
@@ -143,25 +145,37 @@ const Menu = ({ navigation }) => {
           <View style={{ flexDirection: "column" }}>
             {/* isi content */}
             <View style={styles.boxx}>
-              <View style={styles.text}>
-                <Text>Hari :</Text>
-                <Text>Rabu</Text>
-              </View>
-              <View style={styles.text}>
-                <Text>Jam :</Text>
-                <Text>09:00 - 10:00 WIB</Text>
-              </View>
-              <View style={styles.text}>
-                <Text>Bidang :</Text>
-                <Text>Transportasi</Text>
-              </View>
-              <View style={styles.text}>
-                <Text>Pembahasan :</Text>
-                <Text>loremmmmmm</Text>
-              </View>
-              <View style={styles.text}>
-                <Text>Kesimpulan :</Text>
-                <Text>loremmmmmm</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <View>
+                  <View style={styles.text}>
+                    <Text>Hari :</Text>
+                    <Text>Rabu</Text>
+                  </View>
+                  <View style={styles.text}>
+                    <Text>Jam :</Text>
+                    <Text>09:00 - 10:00 WIB</Text>
+                  </View>
+                  <View style={styles.text}>
+                    <Text>Bidang :</Text>
+                    <Text>Transportasi</Text>
+                  </View>
+                  <View style={styles.text}>
+                    <Text>Pembahasan :</Text>
+                    <Text>loremmmmmm</Text>
+                  </View>
+                  <View style={styles.text}>
+                    <Text>Kesimpulan :</Text>
+                    <Text>loremmmmmm</Text>
+                  </View>
+                </View>
+                <TouchableOpacity>
+                  <Entypo name="dots-three-vertical" size={18} />
+                </TouchableOpacity>
               </View>
             </View>
             <Separator />
@@ -269,6 +283,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     marginVertical: 10,
     padding: 25,
+    paddingRight: 20,
     borderRadius: 15,
     width: "110%",
     shadowColor: "#000",
@@ -279,6 +294,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.32,
     shadowRadius: 5.46,
     elevation: 2,
+    // justifyContent: "space-between",
+    // flexDirection: "row",
   },
   text: {
     flexDirection: "row",
